@@ -1,0 +1,17 @@
+#训练集
+Xtrain<-read.table('./train/X_train.txt')
+ytrain<-read.table('./train/y_train.txt')
+Train<-cbind(ytrain,Xtrain,Train=rep(T,length(ytrain)))
+#测试集
+Xtest<-read.table('./test/X_test.txt')
+ytest<-read.table('./test/y_test.txt')
+Test<-cbind(ytest,Xtest,Train=rep(F,length(ytest)))
+#合并
+alldata<-rbind(Train,Test)
+#重命名
+dataname<-as.matrix(read.table('features.txt')[,2])
+names(alldata)<-c('y',dataname,'Train')
+#取出第2题中要求的均值和标准差
+index<-grep('mean\\(\\)|std\\(\\)',names(alldata))
+data2<-alldata[,index]
+#后米没看懂
